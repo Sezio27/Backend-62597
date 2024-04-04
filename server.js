@@ -1,3 +1,8 @@
+//import productsData from './data/products.json';
+
+//export const products = productsData;
+
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -17,13 +22,16 @@ app.use(cors());
 
 // Eksempel på en route handler for root stien '/'
 app.get('/', (req, res) => {
-  res.send('Velkommen til min Node.js server!');
+  //res.send('Velkommen til Gruppe23s Node.js server!');
+//  res.json({ products });
+  res.sendFile("/home/torben/Backend-62597/data/products.json");
 });
 
 // Definerer en route for GET /api forespørgsler
-app.get('/api', (req, res) => {
+app.get('/kurv', (req, res) => {
     // Sender et svar tilbage til klienten
-    res.json({ message: 'Velkommen til vores API!' });
+    //res.json({ message: 'Velkommen til vores API!' });
+    res.send('Velkommen til vores API!');
   })
 
 app.listen(PORT, () => {
