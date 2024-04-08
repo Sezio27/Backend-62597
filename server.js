@@ -28,11 +28,25 @@ app.get('/', (req, res) => {
 });
 
 // Definerer en route for GET /api forespørgsler
-app.get('/kurv', (req, res) => {
+//app.get('/kurv', (req, res) => {
     // Sender et svar tilbage til klienten
     //res.json({ message: 'Velkommen til vores API!' });
-    res.send('Velkommen til vores API!');
-  })
+ //   res.send('Velkommen til vores API!');
+//  })
+
+app.post('/order', (req, res) => {
+    const order = req.body; // Here, you'd process the order data
+    console.log(order); // For now, we'll just log it to the console
+    res.status(201).send('Order received as order');
+});
+
+
+app.post('/', (req, res) => {
+    const order = req.body; // Here, you'd process the order data
+    console.log(order); // For now, we'll just log it to the console
+    res.status(201).send('Order received');
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
