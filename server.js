@@ -1,12 +1,14 @@
 //import productsData from './data/products.json';
 
 import getBasketFromDatabase from './MariaDBDatabase.js';
+import express from 'express';
+import cors from 'cors';
 
 //export const products = productsData;
 
 
-const express = require('express');
-const cors = require('cors');
+//const express = require('express');
+//const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3001;
 

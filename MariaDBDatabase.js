@@ -18,3 +18,4 @@ async function getBasketFromDatabase() {
     }
    }
    
+   export default getBasketFromDatabase;
