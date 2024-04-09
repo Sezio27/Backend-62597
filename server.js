@@ -1,5 +1,7 @@
 //import productsData from './data/products.json';
 
+import getBasketFromDatabase from './MariaDBDatabase.js';
+
 //export const products = productsData;
 
 
@@ -22,17 +24,14 @@ app.use(cors());
 
 // Eksempel på en route handler for root stien '/'
 app.get('/', (req, res) => {
+  const products = getBasketFromDatabase();
   //res.send('Velkommen til Gruppe23s Node.js server!');
 //  res.json({ products });
-  res.sendFile("/home/torben/Backend-62597/data/products.json");
+ // res.sendFile("/home/torben/Backend-62597/data/products.json");
+ res.json(products);
 });
 
-// Definerer en route for GET /api forespørgsler
-//app.get('/kurv', (req, res) => {
-    // Sender et svar tilbage til klienten
-    //res.json({ message: 'Velkommen til vores API!' });
- //   res.send('Velkommen til vores API!');
-//  })
+
 
 app.post('/order', (req, res) => {
     const order = req.body; // Here, you'd process the order data
