@@ -7,7 +7,6 @@ import cors from 'cors';
 //export const products = productsData;
 
 
-//const express = require('express');
 //const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,13 +24,19 @@ app.use(cors());
 //});
 
 // Eksempel på en route handler for root stien '/'
-app.get('/', (req, res) => {
-  const products = getBasketFromDatabase();
+app.get('/', async (req, res) => {
+try {	
+  const products = await getBasketFromDatabase();
+console.log({products});		
   //res.send('Velkommen til Gruppe23s Node.js server!');
 //  res.json({ products });
  // res.sendFile("/home/torben/Backend-62597/data/products.json");
- res.json(products);
-});
+ res.json({ products });
+} catch (error) {
+  console.error("Fejl ved hentning af data fra database:", error);
+//  res.status(500).send('An error occurred');
+res.status(500).json({ error: "Der opstod en fejl ved hentning af data." });
+}});
 
 
 
