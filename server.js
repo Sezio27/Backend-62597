@@ -3,6 +3,8 @@
 import getBasketFromDatabase from './MariaDBDatabase.js';
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
 
 //export const products = productsData;
 
@@ -18,12 +20,6 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Route to handle POST requests for orders
-//app.post('/order', (req, res) => {
- //   const order = req.body; // Here, you'd process the order data
- //   console.log(order); // For now, we'll just log it to the console
-//    res.status(201).send('Order received');
-//});
 
 // Eksempel på en route handler for root stien '/'
 app.get('/', async (req, res) => {
@@ -38,17 +34,16 @@ try {
 }});
 
 
-/*
-app.post('/order', (req, res) => {
-    const order = req.body; // Here, you'd process the order data
-    console.log(order); // For now, we'll just log it to the console
-    res.status(201).send('Order received as order');
-});
-*/
-
 app.post('/', (req, res) => {
-    const order = req.body; // Here, you'd process the order data
-    console.log(order); // For now, we'll just log it to the console
+    const order = req.body; 
+    console.log(order); 
+
+    const dir = path.join(process.cwd(), 'logs', 'receivedOrders');
+    fs.mkdirSync(dir, { recursive: true });
+
+    const filePath = path.join(dir, `${Date.now()}.json`);
+    fs.writeFileSync(filePath, JSON.stringify(order, null, 2));
+
     res.status(201).send('Order received');
 });
 
@@ -56,8 +51,4 @@ app.post('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-// Your existing code for routes and other middleware
 
-app.use(cors({
-    origin: 'http://localhost:5173' // Only allow requests from your React app's origin
-  })); 
