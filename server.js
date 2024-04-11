@@ -12,9 +12,11 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Enable CORS for all requests
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173' // Only allow requests from your React app's origin
+}));
 // Middleware to parse JSON bodies
-//app.use(express.json());
+app.use(express.json());
 
 // Route to handle POST requests for orders
 //app.post('/order', (req, res) => {
@@ -27,25 +29,22 @@ app.use(cors());
 app.get('/', async (req, res) => {
 try {	
   const products = await getBasketFromDatabase();
-console.log({products});		
-  //res.send('Velkommen til Gruppe23s Node.js server!');
-//  res.json({ products });
- // res.sendFile("/home/torben/Backend-62597/data/products.json");
+// console.log({products});		
+ 
  res.json({ products });
 } catch (error) {
   console.error("Fejl ved hentning af data fra database:", error);
-//  res.status(500).send('An error occurred');
-res.status(500).json({ error: "Der opstod en fejl ved hentning af data." });
+  res.status(500).json({ error: "Der opstod en fejl ved hentning af data." });
 }});
 
 
-
+/*
 app.post('/order', (req, res) => {
     const order = req.body; // Here, you'd process the order data
     console.log(order); // For now, we'll just log it to the console
     res.status(201).send('Order received as order');
 });
-
+*/
 
 app.post('/', (req, res) => {
     const order = req.body; // Here, you'd process the order data

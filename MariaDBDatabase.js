@@ -11,9 +11,7 @@ async function getBasketFromDatabase() {
     try {
      const res = await (await conn).query('USE shop_database;');
      res1 = await (await conn).query('select * from basket;');
-    // const res = await conn.query('USE shop_database;');
-     //const res1 = await conn.query('select * from basket;');
-     console.log(res1);
+ //    console.log(res1);
     } finally {
      (await conn).end();
     }
