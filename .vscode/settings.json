@@ -1,0 +1,10 @@
+{
+    "workbench.colorTheme": "Default Light Modern",
+    "editorCursor.foreground": "#69A8E",
+    "terminal.Cursor.foreground": "#69A8E",
+    "security.workspace.trust.untrustedFiles": "open",
+    "remote.SSH.remotePlatform": {
+        "130.225.170.52": "linux"
+    }
+
+}
