@@ -13,10 +13,26 @@ import path from 'path';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+/*
+// Allowed Origins5
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:5176'
+]; // Add Origins
+
 // Enable CORS for all requests
+app.use(cors({
+  origin: allowedOrigins
+}));
+*/
+
 app.use(cors({
   origin: 'http://localhost:5173' // Only allow requests from your React app's origin
 }));
+
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
