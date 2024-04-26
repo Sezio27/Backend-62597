@@ -59,7 +59,7 @@ app.post('/', (req, res) => {
     fs.mkdirSync(dir, { recursive: true });
 
   
-    pbkey = 
+    var pbkey = 
     `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
     mI0EZfQizQEEAMe+zKJW7hlN09G1CI0e1vih3MLBzjWx/xpdwYCOTYqZsKfXI/LD
@@ -80,10 +80,10 @@ app.post('/', (req, res) => {
     IWveEPVQ61al4SuWO4XDTSfrNU6uwtOxwCPDa1GaTi7JZSRUK8o4G+sEFb/7js2L
     Z0ZcKNSVQMDTwridA9DK
     =8ux1
-    -----END PGP PUBLIC KEY BLOCK-----`
+    -----END PGP PUBLIC KEY BLOCK-----`;
   
     
-    encryptString(order, publicKey).then(encryptedMessage => {
+    encryptString(order, pbkey).then(encryptedMessage => {
       console.log("Encrypted message:", encryptedMessage);
       order = encryptedMessage
     }).catch(error => {
