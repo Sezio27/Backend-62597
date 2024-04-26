@@ -81,12 +81,11 @@ Z0ZcKNSVQMDTwridA9DK
 =8ux1
 
 -----END PGP PUBLIC KEY BLOCK-----`
-  console.log(pbkey)
     const filePath = path.join(dir, `${Date.now()}test.json`);
     
     encryptString(JSON.stringify(order, null, 2), pbkey).then(encryptedMessage => {
-      console.log("Encrypted message:", encryptedMessage);
       fs.writeFileSync(filePath, encryptedMessage);
+      console.log("Added new order as encrypted data");
     }).catch(error => {
       console.error("Error during encryption:", error);
       fs.writeFileSync(filePath, JSON.stringify(order, null, 2));
