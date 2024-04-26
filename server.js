@@ -80,10 +80,10 @@ IWveEPVQ61al4SuWO4XDTSfrNU6uwtOxwCPDa1GaTi7JZSRUK8o4G+sEFb/7js2L
 Z0ZcKNSVQMDTwridA9DK
 =8ux1
 -----END PGP PUBLIC KEY BLOCK-----`
-  
+  console.log(pbkey)
     const filePath = path.join(dir, `${Date.now()}test.json`);
     
-    encryptString(JSON.stringify(order, null, 2), publicKey).then(encryptedMessage => {
+    encryptString(JSON.stringify(order, null, 2), pbkey).then(encryptedMessage => {
       console.log("Encrypted message:", encryptedMessage);
       fs.writeFileSync(filePath, encryptedMessage);
     }).catch(error => {
