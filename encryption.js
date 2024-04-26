@@ -1,7 +1,7 @@
 import kbpgp from 'kbpgp';
 
 // Define the function as async internally
-export async function encryptString(str, pbKey) {
+async function encryptString(str, pbKey) {
   try {
     const keyManager = await new Promise((resolve, reject) => {
       kbpgp.KeyManager.import_from_armored_pgp({ armored: pbKey }, function(err, manager) {
@@ -26,3 +26,4 @@ export async function encryptString(str, pbKey) {
     return null; // return null or handle as needed
   }
 }
+export default encryptString
