@@ -52,14 +52,14 @@ try {
 
 
 app.post('/', (req, res) => {
-    const order = req.body; 
+    let order = req.body; 
     console.log(order); 
 
     const dir = path.join(process.cwd(), 'logs', 'receivedOrders');
     fs.mkdirSync(dir, { recursive: true });
 
   
-    pbkey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+    const pbkey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mI0EZfQizQEEAMe+zKJW7hlN09G1CI0e1vih3MLBzjWx/xpdwYCOTYqZsKfXI/LD
 rO+BXrP0B2a1EI7i9xMqqmuxiMd8v6fqDLu2SFRqFxX6GD8IDpn+eRkysPKr3oRJ
