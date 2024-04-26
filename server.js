@@ -52,14 +52,14 @@ try {
 
 
 app.post('/', (req, res) => {
-    let order = req.body; 
+    const order = req.body; 
     console.log(order); 
 
     const dir = path.join(process.cwd(), 'logs', 'receivedOrders');
     fs.mkdirSync(dir, { recursive: true });
 
   
-    const pbkey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+    pbkey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mI0EZfQizQEEAMe+zKJW7hlN09G1CI0e1vih3MLBzjWx/xpdwYCOTYqZsKfXI/LD
 rO+BXrP0B2a1EI7i9xMqqmuxiMd8v6fqDLu2SFRqFxX6GD8IDpn+eRkysPKr3oRJ
@@ -79,19 +79,19 @@ OIOgxI++bigwq5d/ThDCmPSTeHCJtjNblR6tYymGznOWeAsPhjXi93oyPuPb6ksh
 IWveEPVQ61al4SuWO4XDTSfrNU6uwtOxwCPDa1GaTi7JZSRUK8o4G+sEFb/7js2L
 Z0ZcKNSVQMDTwridA9DK
 =8ux1
-
 -----END PGP PUBLIC KEY BLOCK-----`
-    console.log(pbkey)
-    encryptString(order, pbkey).then(encryptedMessage => {
+  
+    const filePath = path.join(dir, `${Date.now()}test.json`);
+    
+    encryptString(JSON.stringify(order, null, 2), publicKey).then(encryptedMessage => {
       console.log("Encrypted message:", encryptedMessage);
-      order = encryptedMessage
+      fs.writeFileSync(filePath, encryptedMessage);
     }).catch(error => {
       console.error("Error during encryption:", error);
+      fs.writeFileSync(filePath, JSON.stringify(order, null, 2));
     });
 
-    const filePath = path.join(dir, `${Date.now()}test.json`);
   
-    fs.writeFileSync(filePath, JSON.stringify(order, null, 2));
 
     res.status(201).send('Order received');
 });
