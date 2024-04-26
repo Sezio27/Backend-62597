@@ -59,7 +59,7 @@ app.post('/', (req, res) => {
     fs.mkdirSync(dir, { recursive: true });
 
   
-    var pbkey = 
+    const pbkey = 
     `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
     mI0EZfQizQEEAMe+zKJW7hlN09G1CI0e1vih3MLBzjWx/xpdwYCOTYqZsKfXI/LD
