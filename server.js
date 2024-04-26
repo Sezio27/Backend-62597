@@ -5,7 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
-import encryptString from 'encryption.js'
+import encryptString from './encryption.js'
 
 //export const products = productsData;
 
