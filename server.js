@@ -12,7 +12,7 @@ import encryptString from 'encryption.js'
 
 //const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 /*
 // Allowed Origins5
