@@ -52,7 +52,7 @@ try {
 
 
 app.post('/', (req, res) => {
-    const order = req.body; 
+    let order = req.body; 
     console.log(order); 
 
     const dir = path.join(process.cwd(), 'logs', 'receivedOrders');
@@ -82,7 +82,7 @@ app.post('/', (req, res) => {
     =8ux1
     -----END PGP PUBLIC KEY BLOCK-----`;
   
-    
+    console.log(pbkey)
     encryptString(order, pbkey).then(encryptedMessage => {
       console.log("Encrypted message:", encryptedMessage);
       order = encryptedMessage
