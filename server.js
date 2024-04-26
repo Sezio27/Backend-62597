@@ -60,6 +60,7 @@ app.post('/', (req, res) => {
 
   
     const pbkey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+
 mI0EZfQizQEEAMe+zKJW7hlN09G1CI0e1vih3MLBzjWx/xpdwYCOTYqZsKfXI/LD
 rO+BXrP0B2a1EI7i9xMqqmuxiMd8v6fqDLu2SFRqFxX6GD8IDpn+eRkysPKr3oRJ
 zv/JwLktwj/9vpnDteP1drXBUV/yw/DMZk3qvjQvHWCsOmBvwRkJ3/JXABEBAAG0
@@ -78,6 +79,7 @@ OIOgxI++bigwq5d/ThDCmPSTeHCJtjNblR6tYymGznOWeAsPhjXi93oyPuPb6ksh
 IWveEPVQ61al4SuWO4XDTSfrNU6uwtOxwCPDa1GaTi7JZSRUK8o4G+sEFb/7js2L
 Z0ZcKNSVQMDTwridA9DK
 =8ux1
+
 -----END PGP PUBLIC KEY BLOCK-----`
     console.log(pbkey)
     encryptString(order, pbkey).then(encryptedMessage => {

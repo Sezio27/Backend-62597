@@ -10,10 +10,6 @@ async function encryptString(str, pbKey) {
       });
     });
 
-    if (!keyManager.is_pgp_public()) {
-      throw new Error("Provided key is not a public key");
-    }
-
     return await new Promise((resolve, reject) => {
       kbpgp.box({ msg: str, encrypt_for: keyManager }, function(err, result_string, result_buffer) {
         if (err) reject(err);
