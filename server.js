@@ -12,7 +12,7 @@ import encryptString from './encryption.js'
 
 //const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 /*
 // Allowed Origins5
@@ -80,7 +80,7 @@ Z0ZcKNSVQMDTwridA9DK
 =8ux1
 
 -----END PGP PUBLIC KEY BLOCK-----`
-    const filePath = path.join(dir, `${Date.now()}.encryptedjson`);
+    const filePath = path.join(dir, `${Date.now()}.gpg`);
     
     encryptString(JSON.stringify(order, null, 2), pbkey).then(encryptedMessage => {
       fs.writeFileSync(filePath, encryptedMessage);
