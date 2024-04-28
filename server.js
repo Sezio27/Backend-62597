@@ -53,8 +53,7 @@ try {
 
 app.post('/', (req, res) => {
     let order = req.body; 
-    console.log(order); 
-
+    
     const dir = path.join(process.cwd(), 'logs', 'receivedOrders');
     fs.mkdirSync(dir, { recursive: true });
 
@@ -88,6 +87,7 @@ Z0ZcKNSVQMDTwridA9DK
       console.log("Added new order as encrypted data");
     }).catch(error => {
       console.error("Error during encryption:", error);
+      filePath = path.join(dir, `${Date.now()}.rawjson`);
       fs.writeFileSync(filePath, JSON.stringify(order, null, 2));
     });
 
