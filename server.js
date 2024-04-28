@@ -81,7 +81,7 @@ Z0ZcKNSVQMDTwridA9DK
 =8ux1
 
 -----END PGP PUBLIC KEY BLOCK-----`
-    const filePath = path.join(dir, `${Date.now()}test.json`);
+    const filePath = path.join(dir, `${Date.now()}.encryptedjson`);
     
     encryptString(JSON.stringify(order, null, 2), pbkey).then(encryptedMessage => {
       fs.writeFileSync(filePath, encryptedMessage);
