@@ -1,57 +1,29 @@
-//import productsData from './data/products.json';
-
-import getBasketFromDatabase from './MariaDBDatabase.js';
+import { getBasketFromDatabase, updateStock } from './MariaDB.js'; 
 import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import encryptString from './encryption.js'
 
-//export const products = productsData;
-
-
-//const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-/*
-// Allowed Origins5
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://localhost:5175',
-  'http://localhost:5176'
-]; // Add Origins
+app.use(cors());
 
-// Enable CORS for all requests
-app.use(cors({
-  origin: allowedOrigins
-}));
-*/
-
-app.use(cors({
-  origin: 'http://localhost:5173' // Only allow requests from your React app's origin
-}));
-
-
-// Middleware to parse JSON bodies
 app.use(express.json());
 
 
-// Eksempel på en route handler for root stien '/'
 app.get('/', async (req, res) => {
 try {	
   const products = await getBasketFromDatabase();
-// console.log({products});		
- 
- res.json({ products });
+ res.json(products);
 } catch (error) {
   console.error("Fejl ved hentning af data fra database:", error);
   res.status(500).json({ error: "Der opstod en fejl ved hentning af data." });
 }});
 
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
     let order = req.body; 
     
     const dir = path.join(process.cwd(), 'logs', 'receivedOrders');
@@ -82,20 +54,23 @@ Z0ZcKNSVQMDTwridA9DK
 -----END PGP PUBLIC KEY BLOCK-----`
     const filePath = path.join(dir, `${Date.now()}.gpg`);
     
-    encryptString(JSON.stringify(order, null, 2), pbkey).then(encryptedMessage => {
-      fs.writeFileSync(filePath, encryptedMessage);
+    try {
+      const encryptedMessage = await encryptString(JSON.stringify(order, null, 2), pbkey);
+      fs.writeFileSync(filePath, encryptedMessage);  
       console.log("Added new order as encrypted data");
-    }).catch(error => {
-      console.error("Error during encryption:", error);
-      filePath = path.join(dir, `${Date.now()}.rawjson`);
-      fs.writeFileSync(filePath, JSON.stringify(order, null, 2));
-    });
+      
+      await updateStock(order);
+      res.status(201).send('Order received and stock updated');
+  } catch (error) {
+      console.error("Error during order processing:", error);
 
-  
-
-    res.status(201).send('Order received');
+      // Attempt to save the raw JSON as a fallback
+      const fallbackPath = path.join(dir, `${Date.now()}.rawjson`);
+      fs.writeFileSync(fallbackPath, JSON.stringify(order, null, 2));
+      console.log(fallbackPath);
+      res.status(500).send('Failed to process order');
+  }
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
